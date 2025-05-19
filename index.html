@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Hedera WalletConnect v2 Demo</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Hedera WalletConnect v2 Demo</h1>
+
+      <div id="wallet-controls">
+        <button type="button" id="connectWalletBtn">Connect Wallet</button>
+
+        <button type="button" id="disconnectWalletBtn" style="display: none;">Disconnect Wallet</button>
+      </div>
+
+      <div id="statusMessages">
+        <p>
+          <strong>Status:</strong> 
+          <span id="walletStatus">Not Connected</span> </p>
+        <p>
+          <strong>Account ID:</strong> 
+          <span id="connectedAccountId">N/A</span> </p>
+        <p>
+          <strong>Session Topic:</strong> 
+          <span id="sessionTopic">N/A</span> </p>
+      </div>
+
+      </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

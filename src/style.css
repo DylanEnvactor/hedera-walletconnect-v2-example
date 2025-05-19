@@ -1,0 +1,73 @@
+/* src/style.css */
+
+/* Basic root styles from Vite's vanilla template for modern font and rendering */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Basic light/dark mode color scheme support (optional) */
+  color-scheme: light dark; 
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Styles for the main body */
+body {
+  margin: 0; /* Remove default browser margin */
+  display: flex; /* Enable flexbox for centering */
+  place-items: center; /* Center content vertically and horizontally */
+  min-width: 320px; /* Minimum width for smaller screens */
+  min-height: 100vh; /* Ensure body takes at least full viewport height */
+}
+
+/* Styles for the main application container div */
+#app {
+  max-width: 768px; /* Set a max width for the content area */
+  margin: 0 auto;   /* Center the app container horizontally */
+  padding: 2rem;    /* Add some padding around the content */
+  text-align: left; /* Default text alignment for content within #app */
+}
+
+/* Basic styling for buttons (can be overridden by Bootstrap or other frameworks if used) */
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit; /* Use the font set on :root */
+  cursor: pointer;
+  transition: border-color 0.25s;
+  margin-bottom: 0.5em; /* Add some space below buttons */
+}
+
+/* Example of hover effect (can be customized) */
+/*
+button:hover {
+  border-color: #747bff; 
+}
+*/
+
+/* Example of focus effect (can be customized) */
+/*
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+*/
+
+/* Specific styles for elements in our Hedera WalletConnect Demo */
+#statusMessages p {
+  margin-bottom: 0.5rem; /* Add some space between status lines */
+  word-break: break-all; /* Ensure long strings like topics or account IDs wrap nicely */
+}
+
+#wallet-controls button {
+  margin-right: 10px; /* Add some space to the right of buttons if they are next to each other */
+}
+
+/* You can add more specific styles for your demo elements here if needed */
