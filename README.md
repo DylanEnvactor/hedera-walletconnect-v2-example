@@ -1,82 +1,90 @@
-# Hedera WalletConnect v2 Minimal Demo
+# Hedera WalletConnect v2 Minimal Demo (Vanilla JS + Vite)
 
-This project is a minimal example demonstrating how to connect a Vanilla JavaScript frontend application (built with Vite) to a Hedera wallet (such as HashPack) using WalletConnect v2 via the `@hashgraph/hedera-wallet-connect` library.
+This project provides a minimal, working example of how to integrate WalletConnect v2 into a Vanilla JavaScript frontend application (built with Vite) to connect to a Hedera wallet (such as HashPack).
 
-It showcases:
-- Initializing the `DAppConnector` from `@hashgraph/hedera-wallet-connect`.
-- Triggering the WalletConnect modal for pairing with a wallet.
-- Establishing a session and retrieving the connected Hedera account ID.
-- Displaying connection status and account information in the UI.
-- Handling disconnection.
-- Basic polyfilling for Node.js dependencies (like `Buffer`) using `vite-plugin-node-polyfills` for browser compatibility.
+It demonstrates the core functionalities:
+- Initializing the `@hashgraph/hedera-wallet-connect` library's `DAppConnector`.
+- Triggering the WalletConnect modal for pairing with a wallet (e.g., showing a QR code or prompting a browser extension).
+- Establishing a WalletConnect session with the user's wallet.
+- Retrieving the connected Hedera account ID from the session.
+- Displaying the connection status and basic session information in the UI.
+- Handling disconnection from the wallet.
+- Basic polyfilling for Node.js dependencies (like `Buffer`) using `vite-plugin-node-polyfills` for browser compatibility, configured in `vite.config.js`.
 
-This demo is intended to provide a clear, focused example of the WalletConnect setup and connection lifecycle for Hedera dApps.
+This demo is intended to be a clean, straightforward example for developers looking to get started with WalletConnect for their Hedera dApps.
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) (LTS version recommended, e.g., v18 or v20+)
-- [npm](https://www.npmjs.com/) (comes with Node.js)
-- A Hedera Testnet account with [HashPack Wallet](https://www.hashpack.app/) (browser extension or mobile).
+- [Node.js](https://nodejs.org/) (LTS version, e.g., v18, v20+)
+- [npm](https://www.npmjs.com/) (included with Node.js)
+- A Hedera Testnet account accessible via a WalletConnect v2 compatible Hedera wallet (e.g., [HashPack Wallet](https://www.hashpack.app/) browser extension or mobile app).
 - A **Project ID** from [WalletConnect Cloud](https://cloud.walletconnect.com/).
 
-## Setup
+## Project Setup
 
-1.  **Clone the repository (if you've put this on GitHub):**
+1.  **Clone the Repository (if applicable):**
+    If you've obtained this project from a Git repository:
     ```bash
-    git clone <your-repo-url>
+    git clone <repository-url>
     cd my-wc-hedera-demo 
     ```
-    (If running locally from the files provided, just navigate to the `my-wc-hedera-demo` directory).
+    If you're setting it up from scratch based on these files, ensure all files are in a directory named `my-wc-hedera-demo`.
 
-2.  **Install dependencies:**
-    Navigate to the project's root directory (`my-wc-hedera-demo`) in your terminal and run:
+2.  **Navigate to the Project Directory:**
+    ```bash
+    cd path/to/my-wc-hedera-demo
+    ```
+
+3.  **Install Dependencies:**
+    Install the necessary npm packages:
     ```bash
     npm install
     ```
+    This will install Vite, `@walletconnect/sign-client`, `@hashgraph/hedera-wallet-connect`, `@hashgraph/sdk`, and `vite-plugin-node-polyfills`.
 
-3.  **Create Environment File:**
-    In the root of the `my-wc-hedera-demo` project, create a new file named `.env`.
+4.  **Create and Configure the Environment File:**
+    * In the root of the `my-wc-hedera-demo` project directory, create a new file named `.env`.
+    * Add the following lines to your `.env` file, replacing the placeholder with your actual WalletConnect Project ID:
 
-4.  **Add Your WalletConnect Project ID to `.env`:**
-    Open the `.env` file and add your Project ID obtained from WalletConnect Cloud:
-    ```env
-    VITE_WALLETCONNECT_PROJECT_ID="YOUR_WALLETCONNECT_PROJECT_ID_HERE"
-    ```
-    Replace `"YOUR_WALLETCONNECT_PROJECT_ID_HERE"` with your actual Project ID.
+        ```env
+        # WalletConnect Project ID (Required - Get from [https://cloud.walletconnect.com/](https://cloud.walletconnect.com/))
+        VITE_WALLETCONNECT_PROJECT_ID="YOUR_WALLETCONNECT_PROJECT_ID_HERE"
+
+        # Hedera Network to target (Optional for this demo as main.js defaults to Testnet, but good practice to have)
+        # Options: "testnet", "mainnet"
+        VITE_HEDERA_NETWORK_NAME="testnet"
+        ```
+    * **Important:** Ensure this `.env` file is listed in your `.gitignore` file (Vite's default template usually includes this) to prevent committing your Project ID if this repository is made public.
 
 ## Running the Demo
 
-1.  **Start the Vite development server:**
+1.  **Start the Vite Development Server:**
     ```bash
     npm run dev
     ```
-2.  Open your web browser and navigate to the local URL provided by Vite (usually `http://localhost:5173/`).
-3.  Ensure your HashPack wallet is set to the **Hedera Testnet**.
-4.  Open your browser's Developer Console (F12) to see detailed logs.
+2.  Vite will start the server and provide a local URL (typically `http://localhost:5173/`). Open this URL in your web browser.
+3.  Ensure your HashPack wallet (or other WalletConnect-compatible Hedera wallet) is set to the **Hedera Testnet**.
+4.  Open your browser's Developer Console (F12 or Right-click > Inspect > Console) to see detailed logs from the application.
 
-## Usage
+## How to Use the Demo
 
-1.  Click the "Connect Wallet" button on the webpage.
-2.  The WalletConnect modal should appear.
-    * If you have HashPack as a browser extension, it might be automatically detected or listed under "Desktop" wallets. Select it.
-    * Alternatively, you can use the "Scan QR Code" option with your HashPack mobile app.
-3.  Approve the connection request in HashPack and select an account to connect.
-4.  The demo page should update to show "Status: Connected," your Hedera Account ID, and the WalletConnect Session Topic.
-5.  Click the "Disconnect Wallet" button to terminate the session. The UI will update accordingly.
+1.  **Click the "Connect Wallet" button** on the webpage.
+2.  The WalletConnect modal should appear, offering ways to connect (e.g., QR code, or direct connection if a compatible browser extension like HashPack is detected).
+3.  Follow the prompts in your HashPack wallet to approve the connection and select an account.
+4.  Once connected, the demo page will update to show:
+    * Status: "Connected"
+    * Account ID: Your connected Hedera Testnet account ID (e.g., `0.0.xxxxx`).
+    * Session Topic: The active WalletConnect session topic string.
+5.  **Click the "Disconnect Wallet" button** to terminate the session. The UI will update to reflect the disconnected state.
 
-## Key Files
+## Key Files in This Demo
 
--   `index.html`: The main HTML page with the basic UI elements.
--   `src/main.js`: Contains the core JavaScript logic for initializing WalletConnect, handling button clicks, and updating the UI.
--   `src/style.css`: Minimal CSS for basic layout.
--   `vite.config.js`: Vite configuration file, including setup for `vite-plugin-node-polyfills` to handle Node.js built-in polyfills like `Buffer`.
--   `.env`: Stores your WalletConnect Project ID (remember to add this to `.gitignore` if you haven't already via Vite's default).
-
-## Notes & Troubleshooting
-
--   **Buffer/Node Polyfills:** This project uses `vite-plugin-node-polyfills` to handle dependencies that might expect Node.js built-in modules like `Buffer`. This is configured in `vite.config.js`.
--   **WalletConnect Modal Logs:** You might see some informational logs or even a 401 error related to `explorer-api.walletconnect.com` in the browser console when the WalletConnect modal initializes. This is often due to the modal trying to fetch a general list of wallets and may not affect direct pairing with HashPack if the extension is used or selected from the modal.
--   **Clearing Vite Cache:** If you make changes to `vite.config.js` or install/uninstall dependencies, it's often a good idea to stop the dev server, delete the `node_modules/.vite` directory, and then restart the dev server (`npm run dev`) to ensure changes are picked up cleanly.
+-   **`index.html`**: The main HTML page providing the basic UI structure (buttons, status display areas).
+-   **`src/main.js`**: Contains the core JavaScript logic. It initializes the `DAppConnector` from `@hashgraph/hedera-wallet-connect`, handles button click events for connecting/disconnecting, and updates the UI.
+-   **`src/style.css`**: Provides minimal CSS for basic layout and appearance.
+-   **`vite.config.js`**: The Vite configuration file. It's set up with `vite-plugin-node-polyfills` to ensure browser compatibility for Node.js built-in modules (like `Buffer`) that might be used by dependencies.
+-   **`.env`**: Stores your `VITE_WALLETCONNECT_PROJECT_ID` and optionally `VITE_HEDERA_NETWORK_NAME`. **This file should not be committed to version control.**
+-   **`package.json`**: Lists project dependencies and scripts.
 
 ---
-*This demo was built to illustrate a basic Hedera WalletConnect v2 connection.*
+*This demo illustrates the fundamental steps for integrating WalletConnect v2 for Hedera dApp wallet connections.*
